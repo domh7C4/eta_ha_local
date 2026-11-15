@@ -1,5 +1,13 @@
 # Änderungen
 
+## 1.1.1 – 15.11.2026
+
+- Fehlende `hacs.json` im Repository-Stamm ergänzt.
+- `documentation`, `issue_tracker` und `codeowners` im Integrationsmanifest ergänzt.
+- Installation über Marketplace/HACS und manuelle Einrichtung in README beschrieben.
+- Hinweis zur separaten Dashboard-Installation und zu älteren Releases ohne `hacs.json`.
+- Keine Änderungen an Abfragen, Sensoren oder gespeicherten Konfigurationen.
+
 ## 1.1.0 – 15.11.2026
 
 - Automatischer Erstscan des echten Menübaums mit Fortschrittsanzeige.

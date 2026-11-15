@@ -3,11 +3,13 @@
 ![ETA-Logo](dashboard/eta-logo.png)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/Version-1.1.0-blue)
+![Version](https://img.shields.io/badge/Version-1.1.1-blue)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Custom%20Integration-41BDF5)
 [![Sponsor via PayPal](https://img.shields.io/badge/PayPal-Projekt%20unterst%C3%BCtzen-00457C?logo=paypal&logoColor=white)](https://www.paypal.me/domh7C4)
 
-Unabhängige, inoffizielle Custom Integration für die lokale ETAtouch REST-API. Ausschließlich lesend. Projektstand: **15. November 2026**, Version **1.1.0**.
+**Repository:** [domh7C4/eta_ha_local](https://github.com/domh7C4/eta_ha_local)
+
+Unabhängige, inoffizielle Custom Integration für die lokale ETAtouch REST-API. Ausschließlich lesend. Projektstand: **15. November 2026**, Version **1.1.1**.
 
 ## Aktueller Funktionsumfang
 
@@ -39,15 +41,37 @@ Verbindung prüfen: `http://HEIZUNGS-IP:8080/user/menu` muss ETA-XML liefern. Ke
 
 ## Integration installieren
 
+### Über den Home-Assistant-Marketplace
+
+1. **Einstellungen → Marketplace** öffnen.
+2. Oben rechts **Über Link hinzufügen / Add from link** wählen.
+3. `https://github.com/domh7C4/eta_ha_local` eintragen und hinzufügen. Falls nach dem Typ gefragt wird, **Integration** wählen.
+4. **ETA Heizung (Lesend)** öffnen und installieren. Falls eine GitHub-Verbindung angefordert wird, diese zuerst einrichten.
+5. Anschließend Home Assistant neu starten und mit **Einrichtung** unten fortfahren.
+
+Das Repository muss öffentlich erreichbar sein. Die erforderliche `hacs.json` liegt im Repository-Stamm. Die Aufnahme in den allgemeinen Katalog wird damit nicht behauptet; das Repository wird über seinen Link hinzugefügt.
+
+### Über HACS, sofern in deiner Home-Assistant-Version vorhanden
+
+1. **HACS → Drei-Punkte-Menü → Benutzerdefinierte Repositories** öffnen.
+2. `https://github.com/domh7C4/eta_ha_local` eintragen, Kategorie **Integration** wählen und hinzufügen.
+3. **ETA Heizung (Lesend)** herunterladen.
+4. Home Assistant vollständig neu starten und mit **Einrichtung** fortfahren.
+
+### Manuelle Installation
+
 1. Repository als ZIP herunterladen und entpacken.
 2. Den Ordner `custom_components/eta_readonly` vollständig nach **`/config/custom_components/eta_readonly`** kopieren. `manifest.json` muss unmittelbar in diesem Zielordner liegen.
 3. Home Assistant vollständig neu starten.
-4. **Einstellungen → Geräte & Dienste → Integration hinzufügen → ETA Heizung (Lesend)**.
-5. IP-Adresse oder Hostname ohne `http://`, Port **8080**, Intervall zunächst **60 Sekunden** eingeben.
-6. Den automatischen Scan abwarten: Menübaum laden, jede gefundene Adresse lesen und alle erfolgreich geprüften Werte vorauswählen. Im Ergebnis die Zahl der gefundenen und übersprungenen Einträge prüfen. Einfach bestätigen oder die Auswahl reduzieren.
-7. Sensoren beim Gerät **ETA Heizung** prüfen. Nicht lesbare Menügruppen bleiben nicht verfügbar.
 
-Kein Eintrag in `configuration.yaml` nötig. Eine Installation als HACS-Repository ist derzeit nicht eingerichtet.
+### Einrichtung
+
+1. **Einstellungen → Geräte & Dienste → Integration hinzufügen → ETA Heizung (Lesend)** öffnen.
+2. IP-Adresse oder Hostname ohne `http://`, Port **8080**, Intervall zunächst **60 Sekunden** eingeben.
+3. Den automatischen Scan abwarten: Menübaum laden, jede gefundene Adresse lesen und alle erfolgreich geprüften Werte vorauswählen. Im Ergebnis die Zahl der gefundenen und übersprungenen Einträge prüfen. Einfach bestätigen oder die Auswahl reduzieren.
+4. Sensoren beim Gerät **ETA Heizung** prüfen. Übersprungene Menügruppen werden nicht als Sensoren angelegt; später ausfallende Werte werden als nicht verfügbar angezeigt.
+
+Kein Eintrag in `configuration.yaml` nötig. Das Dashboard wird separat eingerichtet, wie im nächsten Abschnitt beschrieben. Marketplace/HACS installiert aus diesem Repository nur `custom_components/eta_readonly`; die Dateien im Ordner `dashboard` werden nicht automatisch nach `www` kopiert.
 
 ## Dashboard installieren
 
@@ -64,7 +88,7 @@ Die Vorlage selbst gehört nicht in den Rohkonfigurationseditor. Bei weiteren Se
 
 ## Updates und Grenzen
 
-Vor Updates den vorhandenen Integrationsordner sichern, Dateien ersetzen und Home Assistant neu starten. Eine Änderung von Host, Port, Intervall oder Datenpunktauswahl erfordert derzeit Entfernen und erneutes Einrichten der Integration; dabei können sich Entitäts-IDs ändern. Dashboard anschließend prüfen.
+Vor Updates ein Backup erstellen. Bei Installation über Marketplace/HACS dort das Update ausführen; bei manueller Installation die Dateien im vorhandenen Integrationsordner ersetzen. Anschließend Home Assistant neu starten. Ein reines Update auf 1.1.1 erfordert keine erneute Einrichtung und keinen neuen Scan. Eine Änderung von Host, Port, Intervall oder Datenpunktauswahl erfordert derzeit Entfernen und erneutes Einrichten der Integration; dabei können sich Entitäts-IDs ändern. Dashboard anschließend prüfen.
 
 Keine Steuerung, keine Schalter, kein Schreiben von Heizungsparametern. Keine Abfrage aktiver Störungsmeldungen über `/user/errors`. Pro Datenpunkt eine GET-Anfrage, mit höchstens zwei gleichzeitigen Abfragen. Bei langen Durchläufen wird das effektive Intervall auf mindestens das 1,5-Fache der letzten Durchlaufdauer angehoben (auf volle Sekunden aufgerundet), bleibt aber mindestens beim konfigurierten Intervall. Einzelne Ausfälle machen den jeweiligen Sensor nicht verfügbar. Es wird keine Rücksetzlogik für Energie-/Betriebsstundenzähler angenommen.
 
@@ -87,9 +111,34 @@ Das Logo wurde vom Nutzer bereitgestellt und unverändert übernommen. Für dies
 
 [Technische Details und Quellen](docs/TECHNIK.md).
 
-## Eigenes GitHub-Repository
+## Repository-Struktur und Veröffentlichung
 
-[Anleitung zum manuellen Upload](docs/GITHUB.md). Der Inhalt dieser ZIP gehört direkt in den Repository-Stamm.
+```text
+eta_ha_local/
+├── hacs.json
+├── README.md
+├── LICENSE
+├── THIRD_PARTY_NOTICES.md
+├── custom_components/
+│   └── eta_readonly/
+│       ├── manifest.json
+│       ├── __init__.py
+│       ├── api.py
+│       ├── config_flow.py
+│       ├── scan.py
+│       ├── sensor.py
+│       └── ...
+├── dashboard/
+├── docs/
+├── tests/
+└── .github/
+```
+
+Beim GitHub-Upload den **Inhalt** der entpackten ZIP direkt in den Repository-Stamm hochladen, keinen zusätzlichen äußeren Ordner. `hacs.json` muss neben `README.md` liegen, nicht unter `custom_components`.
+
+Für diese Korrektur einen neuen Release **`v1.1.1`** aus dem aktualisierten Commit erstellen. Auch die installierte bzw. gewählte Release-Version muss `hacs.json` enthalten. Eine alte Version ohne diese Datei wird durch einen Upload nur auf den Hauptbranch nicht nachträglich repariert. Es ist kein separater ZIP-Release-Download konfiguriert; der Installer liest die Dateien aus dem gewählten Git-Stand.
+
+[Anleitung zum manuellen Upload](docs/GITHUB.md).
 
 ## Unterstützung / Sponsor
 
@@ -102,3 +151,15 @@ Wenn dir dieses Projekt hilft, kannst du die Weiterentwicklung freiwillig unters
 Der eigene Projektcode, die eigenen Dashboard-Vorlagen, Dokumentation und die eigens erstellte schematische Zeichnung stehen unter der **GNU General Public License Version 3, ausschließlich diese Version (`GPL-3.0-only`)**. Der vollständige Lizenztext liegt in [LICENSE](LICENSE).
 
 Das Projekt wird ohne Gewährleistung bereitgestellt; die vollständigen Bedingungen ergeben sich aus der Lizenz. Fremde Marken, Logos und andere fremde Materialien werden nicht unter diese Lizenz gestellt. Das betrifft insbesondere `dashboard/eta-logo.png`. Einzelheiten stehen in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+## Fehlerbehebung: „Keine hacs.json im Stammverzeichnis“
+
+- Prüfen, ob `hacs.json` direkt unter `https://github.com/domh7C4/eta_ha_local/blob/main/hacs.json` liegt. Bei einem anderen Standardbranch dessen Namen verwenden.
+- Die Datei muss als Datei hochgeladen sein, nicht nur innerhalb eines ZIP-Anhangs oder in einem Unterordner.
+- Wenn ein älterer Release ausgewählt ist, eine korrigierte Version wie `v1.1.1` wählen bzw. neu veröffentlichen.
+- Anschließend das Repository im Marketplace/HACS aktualisieren und die Installation erneut versuchen.
+
+## Dokumentation zu Marketplace/HACS
+
+- [Marketplace: benutzerdefinierte Repositories](https://www.home-assistant.io/integrations/marketplace/#custom-repositories)
+- [hacs.json: Aufbau und Felder](https://contributors.home-assistant.io/marketplace/reference/hacs-json/)
+- [Repository-Struktur für Integrationen](https://contributors.home-assistant.io/marketplace/reference/repository-structure/)

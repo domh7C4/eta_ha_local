@@ -11,7 +11,7 @@ Benutzerdefinierte, ausschließlich lesende Integration für die ETAtouch REST-A
 5. Die automatische Suche abwarten. Sie prüft die im Menü enthaltenen Datenpunkte, zählt nicht lesbare Einträge und wählt alle lesbaren Werte vor. Auswahl bestätigen oder bei Bedarf reduzieren.
 6. Die Sensoren beim Gerät „ETA Heizung“ öffnen und bei Bedarf zum Dashboard hinzufügen.
 
-Keine YAML-Konfiguration erforderlich. Zum Ändern der Datenpunktauswahl die Integration entfernen und erneut einrichten; dabei kann die Entitätsidentität wechseln. Änderungen an Host/Port/Intervall erfolgen ebenfalls durch erneute Einrichtung. Keine HACS-Repository-Installation vorgesehen.
+Keine YAML-Konfiguration erforderlich. Zum Ändern der Datenpunktauswahl die Integration entfernen und erneut einrichten; dabei kann die Entitätsidentität wechseln. Änderungen an Host/Port/Intervall erfolgen ebenfalls durch erneute Einrichtung. Installation als benutzerdefiniertes Marketplace-/HACS-Repository ist ab 1.1.1 vorbereitet; siehe README.
 
 ## Voraussetzungen laut mitgelieferter ETA-Dokumentation
 
