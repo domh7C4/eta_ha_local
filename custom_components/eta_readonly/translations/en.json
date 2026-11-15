@@ -1,0 +1,36 @@
+{
+  "title": "ETA Heating (Read-only)",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect ETA heating",
+        "description": "Enable LAN access on ETAtouch. Enter the controller IP or hostname; data points are discovered and tested automatically.",
+        "data": {
+          "host": "IP address / hostname",
+          "port": "Port",
+          "interval": "Polling interval (seconds)"
+        }
+      },
+      "points": {
+        "title": "Automatically discovered data points",
+        "description": "Found {found} readable data points. {skipped} entries could not be read (for example menu groups or temporary connection failures). All readable values are preselected. Confirm or reduce the selection. Skipped entries will not be created; repeat setup later if the connection was unstable.",
+        "data": {
+          "points": "Discovered data points"
+        }
+      }
+    },
+    "progress": {
+      "discovering": "Discovering the menu and reading each data point. This can take several minutes; at most two requests run concurrently."
+    },
+    "error": {
+      "cannot_connect": "Cannot read the controller menu. Check IP, port and LAN access.",
+      "invalid_host": "Enter an IP address or hostname without a URL scheme or path.",
+      "invalid_points": "Select at least one successfully tested data point."
+    },
+    "abort": {
+      "already_configured": "This connection is already configured.",
+      "cannot_connect": "Discovery could not reach the controller. Check IP, port and LAN access and restart setup.",
+      "no_points": "No readable data points were found. Check webservices and connectivity, then repeat setup."
+    }
+  }
+}

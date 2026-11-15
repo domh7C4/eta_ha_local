@@ -1,0 +1,55 @@
+{# In Home Assistant: Entwicklerwerkzeuge > Template einfügen.
+   Optional unten statt eta_readonly den Titel einer einzelnen Integration eintragen. #}
+{% set ids = integration_entities('eta_readonly') | select('match', '^sensor[.]') | list | sort %}
+{% set ns = namespace(temps=[], picture='') %}
+{% for id in ids %}
+{% if state_attr(id, 'device_class') == 'temperature' %}
+{% set ns.temps = ns.temps + [id] %}
+{% endif %}
+{% endfor %}
+{% if ids | count > 0 %}
+{% set ns.picture = ns.temps[0] if ns.temps else ids[0] %}
+title: ETA Heizung
+views:
+  - title: Heizung
+    path: heizung
+    icon: mdi:radiator
+    cards:
+      - type: markdown
+        content: |
+          ![ETA-Logo](/local/eta-logo.png)
+
+          # Meine Heizung
+          Aktuelle Messwerte und Verlauf der ETA-Heizung.
+      - type: picture-entity
+        entity: {{ ns.picture }}
+        image: /local/eta-logo.png
+        fit_mode: contain
+        show_name: true
+        show_state: true
+        aspect_ratio: '16:9'
+        tap_action:
+          action: more-info
+      - type: entities
+        title: Alle Heizungswerte
+        show_header_toggle: false
+        state_color: true
+        entities:
+{% for id in ids %}
+          - entity: {{ id }}
+{% endfor %}
+{% if ns.temps %}
+      - type: history-graph
+        title: Temperaturen · letzte 24 Stunden
+        hours_to_show: 24
+        entities:
+{% for id in ns.temps %}
+          - entity: {{ id }}
+{% endfor %}
+{% endif %}
+      - type: markdown
+        content: |
+          Unabhängige, inoffizielle Integration. ETA-Name und -Logo gehören den jeweiligen Rechteinhabern. Keine Verbindung zum Hersteller.
+{% else %}
+# Keine Sensoren gefunden. Zuerst ETA Heizung (Lesend) einrichten und Datenpunkte auswählen.
+{% endif %}

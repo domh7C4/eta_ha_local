@@ -1,0 +1,36 @@
+{
+  "title": "ETA Heizung (Lesend)",
+  "config": {
+    "step": {
+      "user": {
+        "title": "ETA-Heizung verbinden",
+        "description": "LAN-Zugriff am ETAtouch muss aktiviert sein. IP-Adresse oder Hostname eingeben. Die Integration sucht und prüft die Datenpunkte anschließend automatisch.",
+        "data": {
+          "host": "IP-Adresse / Hostname",
+          "port": "Port",
+          "interval": "Abfrageintervall (Sekunden)"
+        }
+      },
+      "points": {
+        "title": "Automatisch gefundene Datenpunkte",
+        "description": "{found} lesbare Datenpunkte gefunden. {skipped} Einträge waren beim Scan nicht lesbar (z. B. Menügruppen oder vorübergehend nicht erreichbar). Alle lesbaren Werte sind vorausgewählt; einfach bestätigen oder die Auswahl reduzieren. Übersprungene Werte werden nicht angelegt. Bei Verbindungsproblemen die Einrichtung später wiederholen.",
+        "data": {
+          "points": "Gefundene Datenpunkte"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Menü nicht abrufbar. IP, Port und LAN-Freischaltung prüfen.",
+      "invalid_host": "Nur IP-Adresse oder Hostname ohne http:// und Pfad eingeben.",
+      "invalid_points": "Mindestens einen der erfolgreich geprüften Datenpunkte auswählen."
+    },
+    "abort": {
+      "already_configured": "Diese Verbindung ist bereits eingerichtet.",
+      "cannot_connect": "Die automatische Suche konnte die Heizung nicht erreichen. IP, Port und LAN-Freischaltung prüfen und Einrichtung neu starten.",
+      "no_points": "Keine lesbaren Datenpunkte gefunden. Webservices und Erreichbarkeit prüfen und Einrichtung wiederholen."
+    },
+    "progress": {
+      "discovering": "Menübaum wird durchsucht und jeder Datenpunkt gelesen. Je nach Anlagengröße kann dies mehrere Minuten dauern. Höchstens zwei Anfragen laufen gleichzeitig."
+    }
+  }
+}
