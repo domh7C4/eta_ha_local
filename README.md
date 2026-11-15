@@ -97,10 +97,6 @@ Wenn dir dieses Projekt hilft, kannst du die Weiterentwicklung freiwillig unters
 
 [![PayPal](https://img.shields.io/badge/PayPal-Spenden-00457C?logo=paypal&logoColor=white)](https://www.paypal.me/domh7C4)
 
-**[Über PayPal unterstützen → paypal.me/domh7C4](https://www.paypal.me/domh7C4)**
-
-Vielen Dank für deine Unterstützung! Sponsoring ist freiwillig und keine Voraussetzung für die Nutzung. Die Datei `.github/FUNDING.yml` hinterlegt denselben Link für den Sponsor-Button auf GitHub. Der Link entspricht dem bestehenden EMH-Power-Flow-Projekt.
-
 ## Lizenz
 
 Der eigene Projektcode, die eigenen Dashboard-Vorlagen, Dokumentation und die eigens erstellte schematische Zeichnung stehen unter der **GNU General Public License Version 3, ausschließlich diese Version (`GPL-3.0-only`)**. Der vollständige Lizenztext liegt in [LICENSE](LICENSE).
