@@ -2,9 +2,9 @@
 
 ## ETA-Logo
 
-Datei: `dashboard/eta-logo.png`.
+Dateien: `dashboard/eta-logo.png`, `custom_components/eta_readonly/brand/logo.png` und die daraus abgeleitete, quadratische Thumbnail-Variante `custom_components/eta_readonly/brand/icon.png`.
 
-Vom Nutzer bereitgestellte, unverändert übernommene Logo-Datei. ETA-Name und -Logo sind fremde Kennzeichen; die Rechte verbleiben bei den jeweiligen Rechteinhabern. Diese Datei ist **nicht** unter GPL-3.0 lizenziert. Es liegt hier kein Nachweis einer Nutzungserlaubnis oder Freigabe zur öffentlichen Weitergabe vor. Ein Quellenhinweis oder die GPL-Lizenz des Projektcodes ersetzt eine solche Erlaubnis nicht.
+Vom Nutzer bereitgestelltes Logo; die Originaldateien wurden unverändert übernommen. Für das Icon wurde mit ImageGen eine quadratische Thumbnail-Variante erstellt. ETA-Name und -Logo sind fremde Kennzeichen; die Rechte verbleiben bei den jeweiligen Rechteinhabern. Diese Datei ist **nicht** unter GPL-3.0 lizenziert. Es liegt hier kein Nachweis einer Nutzungserlaubnis oder Freigabe zur öffentlichen Weitergabe vor. Ein Quellenhinweis oder die GPL-Lizenz des Projektcodes ersetzt eine solche Erlaubnis nicht.
 
 Herstellerquelle: https://www.eta.co.at/impressum/
 

@@ -10,4 +10,6 @@ Manche Konten erlauben das Hochladen von GitHub-Workflows erst nach einer zusät
 
 Die ZIP enthält Quellcode und Dokumentation, kein Git-Verzeichnis und keine Zugangsdaten. Es wurde kein Repository auf GitHub angelegt.
 
-Für die Installation über Marketplace/HACS ist ein öffentliches Repository erforderlich. Nach Upload aller Dateien einen neuen Release `v1.1.1` aus dem korrigierten Commit erstellen. `hacs.json` muss auch im verwendeten Release vorhanden sein. Die Logo-Rechte vor öffentlicher Weitergabe klären.
+Für die Installation über Marketplace/HACS ist ein öffentliches Repository erforderlich. Nach Upload aller Dateien einen neuen Release `v1.0.1` aus dem korrigierten Commit erstellen. `hacs.json` muss auch im verwendeten Release vorhanden sein. Die Logo-Rechte vor öffentlicher Weitergabe klären.
+
+Die Brand-Dateien unter `custom_components/eta_readonly/brand` ebenfalls hochladen. Die Logo-Anzeige vor Installation hängt gegebenenfalls vom Marketplace-Abgleich ab; Details in `BRANDING.md`.

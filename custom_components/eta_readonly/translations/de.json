@@ -1,14 +1,15 @@
 {
-  "title": "ETA Heizung (Lesend)",
+  "title": "ETA Heizung Lokal",
   "config": {
     "step": {
       "user": {
         "title": "ETA-Heizung verbinden",
-        "description": "LAN-Zugriff am ETAtouch muss aktiviert sein. IP-Adresse oder Hostname eingeben. Die Integration sucht und prüft die Datenpunkte anschließend automatisch.",
+        "description": "LAN-Zugriff am ETAtouch muss aktiviert sein. IP-Adresse oder Hostname eingeben. Die Integration sucht und prüft die Datenpunkte anschließend automatisch. Schreibzugriff ist optional und verändert reale Heizungseinstellungen. Er erfordert API-1.2-Metadaten; nur von ETA als schreibbar gemeldete Werte können geändert werden.",
         "data": {
           "host": "IP-Adresse / Hostname",
           "port": "Port",
-          "interval": "Abfrageintervall (Sekunden)"
+          "interval": "Abfrageintervall (Sekunden)",
+          "allow_write": "Schreibzugriff freigeben"
         }
       },
       "points": {
@@ -31,6 +32,17 @@
     },
     "progress": {
       "discovering": "Menübaum wird durchsucht und jeder Datenpunkt gelesen. Je nach Anlagengröße kann dies mehrere Minuten dauern. Höchstens zwei Anfragen laufen gleichzeitig."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Schreibzugriff",
+        "description": "Gibt die Steuerung ausgewählter, von ETA als schreibbar gemeldeter Datenpunkte frei. Änderungen wirken direkt auf die Heizung. Ohne Freigabe bleibt die Integration lesend.",
+        "data": {
+          "allow_write": "Schreibzugriff freigeben"
+        }
+      }
     }
   }
 }

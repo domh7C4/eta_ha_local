@@ -10,11 +10,17 @@ from homeassistant.helpers import selector
 from .api import EtaClient
 from .const import DOMAIN
 from .scan import read_points
+from homeassistant.core import callback
 
 READ_ERRORS = (aiohttp.ClientError, TimeoutError, ValueError, OSError)
 
 class EtaConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry):
+        return EtaOptionsFlow()
 
     def __init__(self):
         self._scan_task = None
@@ -42,6 +48,7 @@ class EtaConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             vol.Required("host"): str,
             vol.Required("port", default=8080): vol.All(vol.Coerce(int), vol.Range(min=1, max=65535)),
             vol.Required("interval", default=60): vol.All(vol.Coerce(int), vol.Range(min=30, max=3600)),
+            vol.Optional("allow_write", default=False): bool,
         }))
 
     async def _async_discover(self):
@@ -78,11 +85,12 @@ class EtaConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 errors["base"] = "invalid_points"
             else:
                 return self.async_create_entry(title=f"ETA {self.connection['host']}", data={
-                    **self.connection,
+                    **{key: value for key, value in self.connection.items()
+                       if key not in ("allow_write", "create_dashboard")},
                     "points": {uri: self._found[uri] for uri in selected},
                     "discovery": {"candidates": len(self.points), "readable": len(self._found),
                                   "skipped": len(self.points) - len(self._found)},
-                })
+                }, options={"allow_write": self.connection.get("allow_write", False)})
         return self.async_show_form(
             step_id="points", errors=errors,
             description_placeholders={"found": str(len(self._found)),
@@ -94,3 +102,12 @@ class EtaConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                                  for uri, name in self._found.items()],
                         multiple=True, mode=selector.SelectSelectorMode.DROPDOWN))
             }))
+
+
+class EtaOptionsFlow(config_entries.OptionsFlowWithReload):
+    async def async_step_init(self, user_input=None):
+        if user_input is not None:
+            return self.async_create_entry(title="", data={**self.config_entry.options, **user_input})
+        return self.async_show_form(step_id="init", data_schema=vol.Schema({
+            vol.Required("allow_write", default=self.config_entry.options.get("allow_write", False)): bool,
+        }))

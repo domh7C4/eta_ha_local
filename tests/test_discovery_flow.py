@@ -47,6 +47,7 @@ class DiscoveryFlowTests(unittest.IsolatedAsyncioTestCase):
             "EtaClient": FakeClient, "async_get_clientsession": lambda hass: None,
             "read_points": scan.read_points, "READ_ERRORS": (OSError, ValueError, TimeoutError),
             "ipaddress": ipaddress, "re": re,
+            "callback": lambda function: function,
         }
         exec(compile(ast.Module(body=[cls], type_ignores=[]), str(source), "exec"), namespace)
         flow = namespace[cls.name]()

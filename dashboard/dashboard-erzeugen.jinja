@@ -1,6 +1,7 @@
 {# In Home Assistant: Entwicklerwerkzeuge > Template einfügen.
    Optional unten statt eta_readonly den Titel einer einzelnen Integration eintragen. #}
 {% set ids = integration_entities('eta_readonly') | select('match', '^sensor[.]') | list | sort %}
+{% set controls = integration_entities('eta_readonly') | select('match', '^select[.]') | list | sort %}
 {% set ns = namespace(temps=[], picture='') %}
 {% for id in ids %}
 {% if state_attr(id, 'device_class') == 'temperature' %}
@@ -50,6 +51,15 @@ views:
       - type: markdown
         content: |
           Unabhängige, inoffizielle Integration. ETA-Name und -Logo gehören den jeweiligen Rechteinhabern. Keine Verbindung zum Hersteller.
+{% if controls %}
+      - type: entities
+        title: Heizungssteuerung
+        show_header_toggle: false
+        entities:
+{% for id in controls %}
+          - entity: {{ id }}
+{% endfor %}
+{% endif %}
 {% else %}
-# Keine Sensoren gefunden. Zuerst ETA Heizung (Lesend) einrichten und Datenpunkte auswählen.
+# Keine Sensoren gefunden. Zuerst ETA Heizung Lokal einrichten und Datenpunkte bestätigen.
 {% endif %}

@@ -1,4 +1,5 @@
 {
-  "name": "ETA Heizung (Lesend)",
-  "content_in_root": false
+  "name": "ETA Heizung Lokal",
+  "content_in_root": false,
+  "homeassistant": "2026.11.0"
 }

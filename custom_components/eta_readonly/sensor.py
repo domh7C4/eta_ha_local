@@ -16,6 +16,9 @@ async def async_setup_entry(hass, entry, async_add_entities):
 class EtaSensor(CoordinatorEntity, SensorEntity):
     _attr_has_entity_name = True
 
+    async def async_set_eta_value(self, value, raw=False, begin=None, end=None):
+        await self.coordinator.async_write(self.uri, value, raw=raw, begin=begin, end=end)
+
     def __init__(self, coordinator, uri, name):
         super().__init__(coordinator)
         self.uri = uri
@@ -54,6 +57,13 @@ class EtaSensor(CoordinatorEntity, SensorEntity):
     @property
     def extra_state_attributes(self):
         if not self.reading:
-            return {"uri": self.uri}
-        return {"uri": self.uri, **{key: self.reading[key] for key in
+            return {"uri": self.uri, "eta_integration": DOMAIN,
+                    "eta_config_entry_id": self.coordinator.entry.entry_id}
+        info = self.coordinator.write_info.get(self.uri)
+        return {"uri": self.uri, "eta_integration": DOMAIN,
+                "eta_config_entry_id": self.coordinator.entry.entry_id,
+                "write_access_enabled": self.coordinator.write_enabled,
+                "writable": info["writable"] if info else None,
+                "allowed_values": info["choices"] if info else [],
+                **{key: self.reading[key] for key in
                 ("raw", "formatted", "scale_factor", "text_offset")}}

@@ -1,14 +1,15 @@
 {
-  "title": "ETA Heating (Read-only)",
+  "title": "ETA Heating Local",
   "config": {
     "step": {
       "user": {
         "title": "Connect ETA heating",
-        "description": "Enable LAN access on ETAtouch. Enter the controller IP or hostname; data points are discovered and tested automatically.",
+        "description": "Enable LAN access on ETAtouch. Enter the controller IP or hostname; data points are discovered and tested automatically. Write access is optional and changes real heating settings. API 1.2 metadata is required; only points declared writable by ETA can be changed.",
         "data": {
           "host": "IP address / hostname",
           "port": "Port",
-          "interval": "Polling interval (seconds)"
+          "interval": "Polling interval (seconds)",
+          "allow_write": "Enable write access"
         }
       },
       "points": {
@@ -31,6 +32,17 @@
       "already_configured": "This connection is already configured.",
       "cannot_connect": "Discovery could not reach the controller. Check IP, port and LAN access and restart setup.",
       "no_points": "No readable data points were found. Check webservices and connectivity, then repeat setup."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Write access",
+        "description": "Enable control of selected writable API points. Changes affect your actual heating system. Disable this option to return to read-only access.",
+        "data": {
+          "allow_write": "Enable write access"
+        }
+      }
     }
   }
 }

@@ -1,0 +1,38 @@
+set_value:
+  name: ETA-Wert setzen
+  description: >-
+    Schreibt einen ausgewählten Datenpunkt nach Prüfung seiner aktuellen ETA-Schreibberechtigung.
+    Schreibzugriff muss in den Integrationsoptionen freigegeben sein. Zahlen standardmäßig in
+    Anzeigeeinheiten, Textzustände genau wie vom Gerät gemeldet. Bei raw werden CAN-Rohwerte erwartet.
+    Zeitfenster verwenden begin/end als ganze Viertelstunden seit Mitternacht (0 bis 96).
+  target:
+    entity:
+      domain: sensor
+      integration: eta_readonly
+  fields:
+    value:
+      name: Wert oder Zustandsbezeichnung
+      required: true
+      selector:
+        text:
+    raw:
+      name: CAN-Rohwert statt Anzeigewert verwenden
+      default: false
+      selector:
+        boolean:
+    begin:
+      name: Beginn des Zeitfensters (Viertelstunden seit Mitternacht)
+      selector:
+        number:
+          min: 0
+          max: 96
+          step: 1
+          mode: box
+    end:
+      name: Ende des Zeitfensters (Viertelstunden seit Mitternacht)
+      selector:
+        number:
+          min: 0
+          max: 96
+          step: 1
+          mode: box
